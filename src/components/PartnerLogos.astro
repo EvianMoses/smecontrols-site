@@ -1,0 +1,50 @@
+---
+// Brand logos shown in grayscale; each card lifts and turns to full color
+// on hover or keyboard focus.
+interface Props {
+  logos: { src: string; alt: string }[];
+}
+const { logos } = Astro.props;
+---
+<ul class="partners">
+  {logos.map((l) => (
+    <li tabindex="0">
+      <img src={`/images/${l.src}`} alt={l.alt} loading="lazy" />
+      <span>{l.alt}</span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .partners {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 16px; list-style: none; margin: 0; padding: 0;
+  }
+  li {
+    position: relative; height: 110px; border: 1px solid #e3e9ef; border-radius: 14px;
+    display: grid; place-items: center; padding: 18px; background: #fff; overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  li::after {
+    content: ''; position: absolute; inset-inline: 0; bottom: 0; height: 3px;
+    background: var(--accent); transform: scaleX(0); transition: transform 0.25s ease;
+  }
+  img {
+    max-height: 48px; width: auto; object-fit: contain;
+    filter: grayscale(1) opacity(0.65); transition: filter 0.25s ease, transform 0.25s ease;
+  }
+  span {
+    position: absolute; bottom: 8px; font-size: 0.8rem; color: var(--muted);
+    opacity: 0; transform: translateY(6px); transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  li:hover, li:focus-visible {
+    transform: translateY(-4px); box-shadow: 0 10px 24px rgba(15, 42, 68, 0.12); border-color: transparent;
+  }
+  li:hover::after, li:focus-visible::after { transform: scaleX(1); }
+  li:hover img, li:focus-visible img { filter: none; transform: translateY(-8px) scale(1.06); }
+  li:hover span, li:focus-visible span { opacity: 1; transform: none; }
+  @media (hover: none) { img { filter: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    li, img, span, li::after { transition: none; }
+  }
+</style>

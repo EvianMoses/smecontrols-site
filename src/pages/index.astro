@@ -1,6 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import Contact from '../components/Contact.astro';
+import LogoMarquee from '../components/LogoMarquee.astro';
+import PartnerLogos from '../components/PartnerLogos.astro';
+import Gallery from '../components/Gallery.astro';
 import { business, partners, clients, gallery } from '../data/site';
 ---
 <Base
@@ -42,9 +45,7 @@ import { business, partners, clients, gallery } from '../data/site';
   <section class="section soft" aria-labelledby="work-title">
     <div class="container">
       <h2 id="work-title">מהעבודות שלנו</h2>
-      <div class="photo-grid">
-        {gallery.map((g) => <img src={`/images/${g}`} alt="לוחות חשמל ומערכות בקרה שבנינו" loading="lazy" />)}
-      </div>
+      <Gallery images={gallery} alt="לוחות חשמל ומערכות בקרה שבנינו" featured />
       <p class="more"><a class="btn btn-outline" href="/projects">לכל הפרויקטים</a></p>
     </div>
   </section>
@@ -52,19 +53,15 @@ import { business, partners, clients, gallery } from '../data/site';
   <section class="section" aria-labelledby="partners-title">
     <div class="container">
       <h2 id="partners-title">עובדים עם המותגים המובילים</h2>
-      <div class="logo-grid">
-        {partners.map((p) => <img src={`/images/${p.src}`} alt={p.alt} loading="lazy" />)}
-      </div>
+      <PartnerLogos logos={partners} />
     </div>
   </section>
 
   <section class="section soft" aria-labelledby="clients-title">
     <div class="container">
       <h2 id="clients-title">מלקוחותינו</h2>
-      <div class="logo-grid">
-        {clients.map((c) => <img src={`/images/${c.src}`} alt={c.alt} loading="lazy" />)}
-      </div>
     </div>
+    <LogoMarquee logos={clients} label="לוגואים של לקוחות" />
   </section>
 
   <Contact />
