@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Contact from '../components/Contact.astro';
+import { business, jobs } from '../data/site';
+---
+<Base
+  title='דרושים | ששון משה הנדסת חשמל בע"מ'
+  description='משרות פתוחות בששון משה הנדסת חשמל: חשמלאים מוסמכים, הנדסאי חשמל ומחווטי לוחות.'
+>
+  <section class="page-head">
+    <div class="container">
+      <h1>דרושים</h1>
+      <p>מצטרפים לצוות שבונה כמה ממערכות הבקרה המתקדמות בישראל.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container jobs">
+      {jobs.map((j) => (
+        <article class="job">
+          <h2>{j.title}</h2>
+          <p>מיקום: {j.location}</p>
+          <a class="btn btn-primary" href={`mailto:${business.email}?subject=${encodeURIComponent('קורות חיים: ' + j.title)}`}>שליחת קורות חיים</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <Contact />
+</Base>
+
+<style>
+  .page-head { background: var(--navy); color: #fff; padding: 56px 0; }
+  .page-head h1 { color: #fff; margin: 0 0 8px; font-size: clamp(2rem, 4vw, 2.8rem); }
+  .jobs { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .job { border: 1px solid #dde4ea; border-radius: var(--radius); padding: 24px; }
+  .job h2 { font-size: 1.3rem; margin: 0 0 8px; }
+</style>

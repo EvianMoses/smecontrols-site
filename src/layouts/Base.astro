@@ -1,0 +1,124 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingActions from '../components/FloatingActions.astro';
+import { business } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/images/about-panel.jpg', Astro.site);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Electrician',
+  name: business.name,
+  telephone: business.phoneIntl,
+  email: business.email,
+  url: 'https://www.smecontrols.com',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'נחל נאמנים 7',
+    addressLocality: 'פארק תעשיות גוש עציון',
+    addressCountry: 'IL',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: 31.7867991, longitude: 35.1830292 },
+  openingHours: 'Su-Th 07:00-18:00',
+  sameAs: [business.facebook],
+};
+---
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="google-site-verification" content="mEqxUMYY7HdelRzr1Gt3Klfc0cSk_pYNAGj6PXDrIkg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="he_IL" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+    <link rel="icon" href="/images/logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">דילוג לתוכן הראשי</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <FloatingActions />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --navy: #0f2a44;
+    --navy-2: #173b5f;
+    --accent: #f2a007;
+    --accent-dark: #b87700;
+    --text: #1d2733;
+    --muted: #556270;
+    --bg: #ffffff;
+    --bg-soft: #f3f6f9;
+    --radius: 10px;
+    --max: 1140px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    font-family: 'Heebo', Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    font-size: 17px;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--navy-2); }
+  h1, h2, h3 { line-height: 1.25; color: var(--navy); }
+  .container { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+  .section { padding: 64px 0; }
+  .section.soft { background: var(--bg-soft); }
+  .section h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 24px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 999px; font-weight: 700;
+    text-decoration: none; border: 2px solid transparent; cursor: pointer;
+    font-size: 1rem; font-family: inherit;
+  }
+  .btn-primary { background: var(--accent); color: #1a1300; }
+  .btn-primary:hover { background: #ffb21f; }
+  .btn-outline { border-color: currentColor; color: inherit; }
+  .skip-link {
+    position: absolute; right: 8px; top: -60px; background: var(--accent);
+    color: #000; padding: 8px 14px; z-index: 100; border-radius: 6px;
+  }
+  .skip-link:focus { top: 8px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .logo-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 16px; align-items: center;
+  }
+  .logo-grid img {
+    width: 100%; height: 70px; object-fit: contain; background: #fff;
+    border-radius: 8px; padding: 8px;
+  }
+  .photo-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px;
+  }
+  .photo-grid img {
+    width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius);
+  }
+</style>
