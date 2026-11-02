@@ -13,9 +13,6 @@ export const business = {
   // Mobile number for WhatsApp in international format, e.g. '972501234567'.
   // Leave empty to hide the WhatsApp button.
   whatsapp: '972505355626',
-  // Free key from https://web3forms.com (sent to the email above).
-  // Until it is set, the contact form falls back to opening an email.
-  web3formsKey: '',
 };
 
 export const partners = [

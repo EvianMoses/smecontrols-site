@@ -2,7 +2,7 @@
 
 The website of ששון משה הנדסת חשמל בע"מ, built with [Astro](https://astro.build) and hosted on Cloudflare Pages.
 
-- Business details (phone, email, WhatsApp, form key): `src/data/site.ts`
+- Business details (phone, email, WhatsApp): `src/data/site.ts`
 - Pages: `src/pages/`
 - Images: `public/images/` (downloaded once from the old Wix site by `.github/workflows/fetch-wix-images.yml`)
 
