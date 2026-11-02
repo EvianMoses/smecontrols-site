@@ -1,0 +1,76 @@
+---
+import { business } from '../data/site';
+---
+<section class="section soft" id="contact" aria-labelledby="contact-title">
+  <div class="container grid">
+    <div>
+      <h2 id="contact-title">צור קשר</h2>
+      <p>רוצים הצעת מחיר או ייעוץ לפרויקט? התקשרו או השאירו פרטים ונחזור אליכם בהקדם.</p>
+      <ul class="details">
+        <li><strong>טלפון:</strong> <a href={`tel:${business.phoneIntl}`} dir="ltr">{business.phone}</a></li>
+        <li><strong>פקס:</strong> <span dir="ltr">{business.fax}</span></li>
+        <li><strong>מייל:</strong> <a href={`mailto:${business.email}`}>{business.email}</a></li>
+        <li><strong>כתובת:</strong> <a href={business.mapUrl} target="_blank" rel="noopener">{business.address}</a></li>
+        {business.hours.map((h) => <li><strong>שעות פעילות:</strong> {h.days}, <span dir="ltr">{h.time}</span></li>)}
+      </ul>
+    </div>
+
+    <form id="lead-form" class="form" action="https://api.web3forms.com/submit" method="POST" data-key={business.web3formsKey} data-email={business.email}>
+      <h3>כתבו לנו</h3>
+      <input type="hidden" name="access_key" value={business.web3formsKey} />
+      <input type="hidden" name="subject" value="פנייה חדשה מהאתר smecontrols.com" />
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <label>שם מלא<input name="name" required autocomplete="name" /></label>
+      <label>טלפון<input name="phone" type="tel" required autocomplete="tel" dir="ltr" /></label>
+      <label>מייל (לא חובה)<input name="email" type="email" autocomplete="email" dir="ltr" /></label>
+      <label>במה נוכל לעזור?<textarea name="message" rows="4"></textarea></label>
+      <button class="btn btn-primary" type="submit">שליחה</button>
+      <p class="status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('lead-form') as HTMLFormElement | null;
+  if (form) {
+    const status = form.querySelector('.status') as HTMLElement;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      // No form key yet: open the visitor's email app with the details filled in.
+      if (!form.dataset.key) {
+        const body = `שם: ${data.get('name')}\nטלפון: ${data.get('phone')}\nמייל: ${data.get('email')}\n\n${data.get('message')}`;
+        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('פנייה מהאתר')}&body=${encodeURIComponent(body)}`;
+        return;
+      }
+      status.textContent = 'שולח...';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        const json = await res.json();
+        if (json.success) {
+          form.reset();
+          status.textContent = 'תודה! הפנייה נשלחה ונחזור אליכם בהקדם.';
+        } else {
+          status.textContent = 'משהו השתבש. אפשר להתקשר אלינו ישירות.';
+        }
+      } catch {
+        status.textContent = 'משהו השתבש. אפשר להתקשר אלינו ישירות.';
+      }
+    });
+  }
+</script>
+
+<style>
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .details { list-style: none; padding: 0; }
+  .details li { margin-bottom: 6px; }
+  .form { background: #fff; padding: 24px; border-radius: var(--radius); box-shadow: 0 4px 20px rgba(15, 42, 68, 0.08); display: grid; gap: 12px; }
+  .form h3 { margin: 0; }
+  label { display: grid; gap: 4px; font-weight: 500; }
+  input, textarea {
+    font: inherit; padding: 10px 12px; border: 1px solid #c4ced8; border-radius: 8px; width: 100%;
+  }
+  .hp { display: none; }
+  .status { margin: 0; min-height: 1.5em; font-weight: 500; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,48 @@
+---
+import { business } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container cols">
+    <div>
+      <strong>{business.name}</strong>
+      <p>{business.tagline}</p>
+      <img src="/images/teken-certification.png" alt="תו תקן ממכון התקנים הישראלי" width="72" height="72" class="cert" />
+    </div>
+    <div>
+      <strong>פרטי התקשרות</strong>
+      <ul>
+        <li>טלפון: <a href={`tel:${business.phoneIntl}`} dir="ltr">{business.phone}</a></li>
+        <li>פקס: <span dir="ltr">{business.fax}</span></li>
+        <li>מייל: <a href={`mailto:${business.email}`}>{business.email}</a></li>
+        <li><a href={business.mapUrl} target="_blank" rel="noopener">{business.address}</a></li>
+      </ul>
+    </div>
+    <div>
+      <strong>שעות פעילות</strong>
+      <ul>
+        {business.hours.map((h) => <li>{h.days}: <span dir="ltr">{h.time}</span></li>)}
+      </ul>
+      <a href={business.facebook} target="_blank" rel="noopener">הדף שלנו בפייסבוק</a>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© {year} {business.name}. כל הזכויות שמורות.</span>
+    <a href="/accessibility">הצהרת נגישות</a>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--navy); color: #dfe7ef; padding: 48px 0 24px; }
+  .site-footer a { color: #fff; }
+  .site-footer strong { color: #fff; display: block; margin-bottom: 8px; }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { margin-bottom: 4px; }
+  .cert { margin-top: 8px; width: 72px; height: 72px; object-fit: contain; }
+  .bottom {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15); margin-top: 32px; padding-top: 16px; font-size: 0.9rem;
+  }
+  @media (max-width: 760px) { .site-footer { padding-bottom: 96px; } }
+</style>

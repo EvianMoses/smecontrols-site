@@ -1,0 +1,51 @@
+---
+import { business } from '../data/site';
+const links = [
+  { href: '/#about', label: 'אודות' },
+  { href: '/projects', label: 'פרויקטים' },
+  { href: '/jobs', label: 'דרושים' },
+  { href: '/#contact', label: 'צור קשר' },
+];
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="brand" aria-label={`${business.name}, לדף הבית`}>
+      <img src="/images/logo.jpg" alt="" width="56" height="56" />
+      <span>
+        <strong>ששון משה</strong>
+        <small>הנדסת חשמל · פיקוד ובקרה</small>
+      </span>
+    </a>
+    <nav aria-label="תפריט ראשי">
+      <ul>
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <a class="btn btn-primary call" href={`tel:${business.phoneIntl}`}>
+      <span aria-hidden="true">📞</span> {business.phone}
+    </a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50; background: #fff;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+  }
+  .bar { display: flex; align-items: center; gap: 20px; min-height: 72px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--navy); }
+  .brand img { width: 48px; height: 48px; object-fit: contain; }
+  .brand strong { display: block; font-size: 1.15rem; }
+  .brand small { display: block; color: var(--muted); font-size: 0.8rem; }
+  nav { margin-inline-start: auto; }
+  nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+  nav a { text-decoration: none; color: var(--text); font-weight: 500; }
+  nav a:hover { color: var(--accent-dark); }
+  .call { padding: 10px 18px; direction: ltr; }
+  @media (max-width: 760px) {
+    .bar { padding-top: 8px; padding-bottom: 8px; gap: 8px; }
+    nav { order: 3; width: 100%; margin: 0; }
+    nav ul { justify-content: space-between; gap: 8px; font-size: 0.95rem; }
+    .call { margin-inline-start: auto; font-size: 0.9rem; padding: 8px 14px; }
+  }
+</style>

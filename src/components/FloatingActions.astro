@@ -1,0 +1,24 @@
+---
+import { business } from '../data/site';
+---
+<div class="floating" aria-label="יצירת קשר מהירה">
+  <a class="fab call" href={`tel:${business.phoneIntl}`}>📞 התקשרו עכשיו</a>
+  {business.whatsapp && (
+    <a class="fab wa" href={`https://wa.me/${business.whatsapp}`} target="_blank" rel="noopener">וואטסאפ</a>
+  )}
+</div>
+
+<style>
+  .floating { display: none; }
+  @media (max-width: 760px) {
+    .floating {
+      display: flex; gap: 8px; position: fixed; bottom: 12px; left: 12px; right: 12px; z-index: 60;
+    }
+    .fab {
+      flex: 1; text-align: center; padding: 14px; border-radius: 999px; font-weight: 700;
+      text-decoration: none; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+    .call { background: var(--accent); color: #1a1300; }
+    .wa { background: #1f9e4f; color: #fff; }
+  }
+</style>

@@ -1,0 +1,32 @@
+# One-time helper: downloads the original images from the old Wix site
+# into public/images and commits them. Runs when scripts/wix-images.txt changes.
+name: Fetch images from Wix
+on:
+  push:
+    paths:
+      - scripts/wix-images.txt
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download images
+        run: |
+          mkdir -p public/images
+          grep -v '^#' scripts/wix-images.txt | while read -r url name; do
+            [ -z "$url" ] && continue
+            [ -f "public/images/$name" ] && continue
+            echo "-> $name"
+            curl -fsSL --retry 3 -o "public/images/$name" "$url" || echo "FAILED $name"
+          done
+          ls -la public/images
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images
+          git diff --cached --quiet || git commit -m "Add images downloaded from the old Wix site"
+          git push

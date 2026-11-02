@@ -1,0 +1,95 @@
+---
+import Base from '../layouts/Base.astro';
+import Contact from '../components/Contact.astro';
+import { business, partners, clients, gallery } from '../data/site';
+---
+<Base
+  title='ששון משה הנדסת חשמל בע"מ | פיקוד ובקרה | ישראל'
+  description='ששון משה הנדסת חשמל בע"מ: ייעוץ, תכנון וביצוע לוחות חשמל, פיקוד ובקרה. קרוב ל-30 שנות ניסיון בהקמת פסי ייצור בארץ ובעולם. מתן שירות ופתרון בעיות בשטח.'
+>
+  <section class="hero">
+    <div class="container hero-inner">
+      <p class="eyebrow">מספר 1 בישראל למערכות בקרה מתקדמות</p>
+      <h1>{business.name}</h1>
+      <p class="lead">{business.tagline}</p>
+      <div class="actions">
+        <a class="btn btn-primary" href={`tel:${business.phoneIntl}`}>📞 חייגו עכשיו: <span dir="ltr">{business.phone}</span></a>
+        <a class="btn btn-outline" href="#contact">לקבלת הצעת מחיר</a>
+      </div>
+      <p class="moved">עברנו! המשכן החדש שלנו: {business.address}</p>
+    </div>
+  </section>
+
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="container about">
+      <div>
+        <h2 id="about-title">כשחשמל, פיקוד ובקרה נפגשים, השמיים הם הגבול</h2>
+        <p>
+          אנו מספקים מעטפת הנדסית שלמה להקמת מערכות חשמל, פיקוד ובקרה: מתכנון וייעוץ, דרך ייצור ואינטגרציה, ועד לביצוע בשטח.
+          עם קרוב ל-30 שנות ניסיון בהקמת פסי ייצור מורכבים בארץ ובעולם, אנחנו הופכים רעיונות למערכות אמינות, בטוחות ומתקדמות.
+        </p>
+        <h3>היתרון שלנו בשטח</h3>
+        <ul class="perks">
+          <li><strong>פתרון מקצה לקצה:</strong> ליווי מלא משלב התכנון הראשוני, כולל ייעוץ לקליטת מכונות מחו"ל, ועד לשירותי שטח מקצועיים.</li>
+          <li><strong>יצירתיות וניסיון:</strong> יכולת מוכחת לפתור אתגרים הנדסיים מורכבים תחת אחריותו של ששון משה, מנכ"ל ומייסד החברה.</li>
+          <li><strong>בטיחות ללא פשרות:</strong> עמידה בתקנים המחמירים ביותר ותחת הסמכת מכון התקנים הישראלי.</li>
+        </ul>
+      </div>
+      <img src="/images/about-panel.jpg" alt="לוח חשמל עם כבלים מחווטים" loading="lazy" />
+    </div>
+  </section>
+
+  <section class="section soft" aria-labelledby="work-title">
+    <div class="container">
+      <h2 id="work-title">מהעבודות שלנו</h2>
+      <div class="photo-grid">
+        {gallery.map((g) => <img src={`/images/${g}`} alt="לוחות חשמל ומערכות בקרה שבנינו" loading="lazy" />)}
+      </div>
+      <p class="more"><a class="btn btn-outline" href="/projects">לכל הפרויקטים</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="partners-title">
+    <div class="container">
+      <h2 id="partners-title">עובדים עם המותגים המובילים</h2>
+      <div class="logo-grid">
+        {partners.map((p) => <img src={`/images/${p.src}`} alt={p.alt} loading="lazy" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" aria-labelledby="clients-title">
+    <div class="container">
+      <h2 id="clients-title">מלקוחותינו</h2>
+      <div class="logo-grid">
+        {clients.map((c) => <img src={`/images/${c.src}`} alt={c.alt} loading="lazy" />)}
+      </div>
+    </div>
+  </section>
+
+  <Contact />
+</Base>
+
+<style>
+  .hero {
+    color: #fff;
+    background:
+      linear-gradient(90deg, rgba(15, 42, 68, 0.92), rgba(15, 42, 68, 0.6)),
+      url('/images/hero.jpg') center / cover no-repeat, var(--navy);
+    padding: 96px 0;
+  }
+  .hero h1 { color: #fff; font-size: clamp(2rem, 5vw, 3.2rem); margin: 8px 0; }
+  .eyebrow { color: var(--accent); font-weight: 700; margin: 0; }
+  .lead { font-size: clamp(1.1rem, 2.4vw, 1.4rem); margin: 0 0 28px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .moved { margin-top: 28px; font-size: 0.95rem; opacity: 0.9; }
+  .about { display: grid; grid-template-columns: 3fr 2fr; gap: 40px; align-items: center; }
+  .about img { border-radius: var(--radius); }
+  .perks { padding-inline-start: 20px; }
+  .perks li { margin-bottom: 10px; }
+  .more { text-align: center; margin-top: 28px; }
+  @media (max-width: 760px) {
+    .hero { padding: 64px 0; }
+    .about { grid-template-columns: 1fr; }
+  }
+</style>
