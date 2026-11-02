@@ -1,0 +1,9 @@
+// Cloudflare config, used when the site is deployed as a Worker with static assets.
+{
+  "name": "smecontrols-site",
+  "compatibility_date": "2026-11-02",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
