@@ -12,7 +12,7 @@ export const business = {
   facebook: 'https://www.facebook.com/smelectricontrol',
   // Mobile number for WhatsApp in international format, e.g. '972501234567'.
   // Leave empty to hide the WhatsApp button.
-  whatsapp: '',
+  whatsapp: '972505355626',
   // Free key from https://web3forms.com (sent to the email above).
   // Until it is set, the contact form falls back to opening an email.
   web3formsKey: '',
@@ -53,7 +53,7 @@ export const clients = [
 export const gallery = [
   'gallery-01.jpg', 'gallery-02.jpg', 'gallery-03.jpg', 'gallery-04.jpg',
   'p02-matzot-5.jpg', 'p04-flour-8.jpg', 'gallery-05.jpg', 'gallery-06.jpg',
-  'p02-matzot-1.jpg', 'p01-polipach.jpg', 'gallery-07.jpg', 'gallery-08.jpg',
+  'p02-matzot-1.jpg', 'p01-polipach.jpg', 'gallery-07.jpg', 'p04-flour-1.jpg',
 ];
 
 export const projects = [
