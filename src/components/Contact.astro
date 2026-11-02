@@ -15,15 +15,15 @@ import { business } from '../data/site';
       </ul>
     </div>
 
-    <form id="lead-form" class="form" action="https://api.web3forms.com/submit" method="POST" data-key={business.web3formsKey} data-email={business.email}>
+    <form id="lead-form" class="form" action={`https://formsubmit.co/ajax/${business.email}`} method="POST">
       <h3>כתבו לנו</h3>
-      <input type="hidden" name="access_key" value={business.web3formsKey} />
-      <input type="hidden" name="subject" value="פנייה חדשה מהאתר smecontrols.com" />
-      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-      <label>שם מלא<input name="name" required autocomplete="name" /></label>
-      <label>טלפון<input name="phone" type="tel" required autocomplete="tel" dir="ltr" /></label>
-      <label>מייל (לא חובה)<input name="email" type="email" autocomplete="email" dir="ltr" /></label>
-      <label>במה נוכל לעזור?<textarea name="message" rows="4"></textarea></label>
+      <input type="hidden" name="_subject" value="פנייה חדשה מהאתר smecontrols.com" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <label>שם מלא<input name="שם" required autocomplete="name" /></label>
+      <label>טלפון<input name="טלפון" type="tel" required autocomplete="tel" dir="ltr" /></label>
+      <label>מייל (לא חובה)<input name="מייל" type="email" autocomplete="email" dir="ltr" /></label>
+      <label>במה נוכל לעזור?<textarea name="הודעה" rows="4"></textarea></label>
       <button class="btn btn-primary" type="submit">שליחה</button>
       <p class="status" role="status" aria-live="polite"></p>
     </form>
@@ -31,23 +31,23 @@ import { business } from '../data/site';
 </section>
 
 <script>
+  // Sends the form through FormSubmit (formsubmit.co), which emails it to the business.
   const form = document.getElementById('lead-form') as HTMLFormElement | null;
   if (form) {
     const status = form.querySelector('.status') as HTMLElement;
+    const button = form.querySelector('button') as HTMLButtonElement;
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const data = new FormData(form);
-      // No form key yet: open the visitor's email app with the details filled in.
-      if (!form.dataset.key) {
-        const body = `שם: ${data.get('name')}\nטלפון: ${data.get('phone')}\nמייל: ${data.get('email')}\n\n${data.get('message')}`;
-        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('פנייה מהאתר')}&body=${encodeURIComponent(body)}`;
-        return;
-      }
       status.textContent = 'שולח...';
+      button.disabled = true;
       try {
-        const res = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-        const json = await res.json();
-        if (json.success) {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const json = await res.json().catch(() => ({}));
+        if (res.ok && String(json.success) !== 'false') {
           form.reset();
           status.textContent = 'תודה! הפנייה נשלחה ונחזור אליכם בהקדם.';
         } else {
@@ -55,6 +55,8 @@ import { business } from '../data/site';
         }
       } catch {
         status.textContent = 'משהו השתבש. אפשר להתקשר אלינו ישירות.';
+      } finally {
+        button.disabled = false;
       }
     });
   }
