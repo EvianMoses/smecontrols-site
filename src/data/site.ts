@@ -7,7 +7,7 @@ export const business = {
   fax: '02-6535743',
   email: 'sasson1967@gmail.com',
   address: 'נחל נאמנים 7, פארק תעשיות גוש עציון',
-  mapUrl: 'https://www.google.com/maps/search/?api=1&query=31.7867991,35.1830292',
+  mapUrl: 'https://www.google.com/maps/place/%D7%A9%D7%A9%D7%95%D7%9F+%D7%9E%D7%A9%D7%94+%D7%94%D7%A0%D7%93%D7%A1%D7%AA+%D7%97%D7%A9%D7%9E%D7%9C+%D7%91%D7%A2%22%D7%9E/@31.6408409,35.1501998,213m/data=!3m1!1e3!4m6!3m5!1s0x1502d62bdbf060f7:0x6a444c66c8a8e489!8m2!3d31.6411178!4d35.1503706',
   hours: [{ days: 'ראשון - חמישי', time: '07:00 - 18:00' }],
   facebook: 'https://www.facebook.com/smelectricontrol',
   // Mobile number for WhatsApp in international format, e.g. '972501234567'.
@@ -30,21 +30,21 @@ export const clients = [
   { src: 'client-readymix.png', alt: 'רדימיקס' },
   { src: 'client-osem.png', alt: 'אסם' },
   { src: 'client-matzot-yehuda.jpg', alt: 'מצות יהודה' },
-  { src: 'client-carmel.jpg', alt: 'מצות כרמל' },
+  { src: 'client-carmel.jpg', alt: 'יקבי כרמל' },
   { src: 'client-mateh-binyamin.jpg', alt: 'מועצה אזורית מטה בנימין' },
   { src: 'client-maale-adumim.jpg', alt: 'עיריית מעלה אדומים' },
   { src: 'client-shapir.png', alt: 'שפיר' },
-  { src: 'client-maya.jpg', alt: 'מאיה' },
-  { src: 'client-tamares.jpg', alt: 'תמרס' },
+  { src: 'client-maya.jpg', alt: 'מי"ה' },
+  { src: 'client-tamares.jpg', alt: 'מלון דניאל ים המלח' },
   { src: 'client-rajwan.png', alt: "רג'ואן" },
   { src: 'client-angel.jpg', alt: 'אנג\'ל' },
-  { src: 'client-kd.jpg', alt: 'לקוח' },
-  { src: 'client-03.jpg', alt: 'לקוח' },
-  { src: 'client-04.png', alt: 'לקוח' },
-  { src: 'client-09.png', alt: 'לקוח' },
-  { src: 'client-11.png', alt: 'לקוח' },
-  { src: 'client-13.jpeg', alt: 'לקוח' },
-  { src: 'client-14.png', alt: 'לקוח' },
+  { src: 'client-kd.jpg', alt: 'מלון המלך דוד' },
+  { src: 'client-03.jpg', alt: 'Veridis Environment' },
+  { src: 'client-04.png', alt: 'יקבי טפרברג' },
+  { src: 'client-09.png', alt: 'אומנות המיזוג' },
+  { src: 'client-11.png', alt: 'כרמל רקיקים' },
+  { src: 'client-13.jpeg', alt: 'אלקיים תעשיות' },
+  { src: 'client-14.png', alt: 'פולי פח' },
 ];
 
 export const gallery = [
@@ -109,6 +109,6 @@ export const projects = [
 ];
 
 export const jobs = [
-  { title: 'חשמלאי/ת מוסמך/ת או הנדסאי/ת חשמל', location: 'ירושלים' },
-  { title: 'מחווט/ת לוחות חשמל', location: 'ירושלים' },
+  { title: 'חשמלאי/ת מוסמך/ת או הנדסאי/ת חשמל', location: 'פארק תעשיות גוש עציון' },
+  { title: 'מחווט/ת לוחות חשמל', location: 'פארק תעשיות גוש עציון' },
 ];
